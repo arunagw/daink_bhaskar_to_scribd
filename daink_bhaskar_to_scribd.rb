@@ -8,7 +8,7 @@ today = date.strftime("%m-%d-%Y")
 
 final_output_file_name = "Danik-Bhaskar-Jaipur-#{today}"
 
-output_path = File.join(Dir.tmpdir, final_output_file_name, Dir.mktmpdir)
+output_path = File.join(Dir.tmpdir, Dir.mktmpdir, final_output_file_name)
 
 FileUtils.mkdir_p(output_path)
 FileUtils.cd(output_path)
