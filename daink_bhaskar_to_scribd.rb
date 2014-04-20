@@ -19,13 +19,15 @@ pages = (1..24)
 
 city_bhaskar_pages = (25..28)
 
+file_number = (today.strftime("%d").to_i - 1 )
+
 pages.each do |page|
-  system "wget --output-document #{page}.pdf #{base_url}/18JAIPURCITY-PG#{page}-0.PDF"
+  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}JAIPURCITY-PG#{page}-0.PDF"
 end
 
 city_bhaskar_pages.each do |page|
   page_to_fetch = page - 24
-  system "wget --output-document #{page}.pdf #{base_url}/18CBHASKAR-PG#{page_to_fetch}-0.PDF"
+  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}CBHASKAR-PG#{page_to_fetch}-0.PDF"
 end
 
 files_to_combine = (1..28).map { |page| "#{page}.pdf" }
