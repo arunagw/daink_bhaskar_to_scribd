@@ -19,7 +19,7 @@ pages = (1..24)
 
 city_bhaskar_pages = (25..28)
 
-file_number = (today.strftime("%d").to_i - 1 )
+file_number = (date.strftime("%d").to_i - 1 )
 
 pages.each do |page|
   system "wget --output-document #{page}.pdf #{base_url}/#{file_number}JAIPURCITY-PG#{page}-0.PDF"
