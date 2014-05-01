@@ -19,18 +19,20 @@ pages = (1..24)
 
 city_bhaskar_pages = (25..28)
 
-file_number = (date.strftime("%d").to_i - 1 )
+file_number = (date - 86400).strftime("%d").to_i
 
 pages.each do |page|
-  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}JAIPURCITY-PG#{page}-0.PDF"
+  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}JAIPURCITY-PG#{page}-0.PDF || rm #{page}.pdf"
 end
 
 city_bhaskar_pages.each do |page|
   page_to_fetch = page - 24
-  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}CBHASKAR-PG#{page_to_fetch}-0.PDF"
+  system "wget --output-document #{page}.pdf #{base_url}/#{file_number}CBHASKAR-PG#{page_to_fetch}-0.PDF || rm #{page}.pdf"
 end
 
-files_to_combine = (1..28).map { |page| "#{page}.pdf" }
+files_to_combine = Dir.glob('**/*.pdf').sort_by{ |f| File.ctime(f) }
+
+p FileUtils.pwd
 
 system "pdftk #{files_to_combine.join(' ')} output #{final_output_file_name}.pdf"
 
